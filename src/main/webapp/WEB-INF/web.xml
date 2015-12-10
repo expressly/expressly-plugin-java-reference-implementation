@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+    <display-name>Expressly Plugin Reference Implementation</display-name>
+    <listener>
+        <listener-class>myshop.ApplicationListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>MerchantPluginServlet</servlet-name>
+        <servlet-class>com.buyexpressly.api.MerchantPluginServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>PopupExampleServlet</servlet-name>
+        <servlet-class>myshop.PopupExampleServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MerchantPluginServlet</servlet-name>
+        <url-pattern>/expressly/api/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>PopupExampleServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

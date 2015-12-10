@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+
+tomcatRun {
+    contextPath = ''
+}
+
+
+group = 'com.buyexpressly'
+version = '2.0'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.4'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def tomcatVersion = '7.0.59'
+
+    compile 'com.buyexpressly:plugin-sdk:2.+'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    checkstyle('com.puppycrawl.tools:checkstyle:6.7')
+}
+
+checkstyle {
+    configFile = new File(rootDir, "config/checkstyle/checkstyle.xml")
+    showViolations = false
+}
