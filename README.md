@@ -14,11 +14,11 @@ You can start the reference implementation by executing the following command:
 
     gradlew tomcatRun
 
+and then go to: [http://localhost:8080/expressly/api/ping](http://localhost:8080/expressly/api/ping)
+
 ## What Am I Looking At
 
-This project is a bare bones Tomcat project.
-
-The core steps that you will need to integrate your shop with the Expressly Network are:
+This project is a bare bones Tomcat project with the core steps that you will need to integrate your shop with the Expressly Network. These are:
 
  1. **Added the expressly plugin SDK dependency** - you should restrict any dynamic dependency to the major version as Expressly will 
  endeavour to make sure there are no breaking changes within the same major version but reserve the right to modify the 
@@ -28,20 +28,21 @@ The core steps that you will need to integrate your shop with the Expressly Netw
  this interface. This is the bridge between the Expressly network and your platform. The reference implementation has an 
  example in [MyShopExpresslyProvider](https://github.com/expressly/expressly-plugin-java-reference-implementation/blob/master/src/main/java/myshop/MyShopExpresslyProvider.java).
 
- 1. **Configure the Expressly router** - you will need to create and add an instance of the [ExpresslyRouter](https://github.com/expressly/expressly-plugin-sdk-java-core/blob/master/src/main/java/com/buyexpressly/api/MerchantServiceRouter.java) to the
- application context so that the [MerchantPluginServlet](https://github.com/expressly/expressly-plugin-sdk-java-core/blob/master/src/main/java/com/buyexpressly/api/MerchantPluginServlet.java)
- [Expressly::Configuration](https://github.com/expressly/expressly-plugin-sdk-ruby-core/blob/master/lib/expressly.rb) 
- can access the router. There is an example of this being done in [ApplicationListener](https://github.com/expressly/expressly-plugin-java-reference-implementation/blob/master/src/main/java/myshop/ApplicationListener.java)
+ 1. **Configure the Expressly router** - you will need to create and add an instance of the com.buyexpressly.api.MerchantServiceRouter to the
+ application context so that the 
+ [MerchantPluginServlet](https://github.com/expressly/expressly-plugin-sdk-java-core/blob/master/src/main/java/com/buyexpressly/api/MerchantPluginServlet.java)
+ can access the router. There is an example of this being done in 
+ [ApplicationListener](https://github.com/expressly/expressly-plugin-java-reference-implementation/blob/master/src/main/java/myshop/ApplicationListener.java)
  
  1. **Map the MerchantPluginServlet** - You will need to map the MerchantPluginServlet mentioned above to /expressly/api/*. See 
- [web.xml](https://github.com/expressly/expressly-plugin-java-reference-implementation/blob/master/src/webapp/WEB-INF/web.xml)
+ [web.xml](https://github.com/expressly/expressly-plugin-java-reference-implementation/blob/master/src/main/webapp/WEB-INF/web.xml)
  
  1. **Enable rendering of Expressly popup** - When an Expressly network customer selects to migrate their profile to
  your platform you will be required to display an Expressly customer confirmation popup to the user before they proceed. In the reference implementation
  you will notice that the 
  [PopupExampleServlet](https://github.com/expressly/expressly-plugin-java-reference-implementation/blob/master/src/main/java/myshop/PopupExampleServlet.java)
  and 
- [homepage.jsp](https://github.com/expressly/expressly-plugin-java-reference-implementation/blob/master/src/webapp/homepage.jsp) 
+ [homepage.jsp](https://github.com/expressly/expressly-plugin-java-reference-implementation/blob/master/src/main/webapp/homepage.jsp) 
  demonstrate one way of handling the flow. This servlet and jsp are meant to represent existing servlets and pages in your
  shop.
   
