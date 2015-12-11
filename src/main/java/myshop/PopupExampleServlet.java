@@ -17,7 +17,7 @@ public class PopupExampleServlet extends HttpServlet {
 
     private void transferExpresslyPopupContentFromSessionToRequest(HttpServletRequest req) {
         Object expresslyPopupContent = req.getSession().getAttribute(EXPRESSLY_POPUP_ATTRIBUTE_NAME);
-        if (expresslyPopupContent != null)  {
+        if (expresslyPopupContent != null) {
             req.getSession().removeAttribute(EXPRESSLY_POPUP_ATTRIBUTE_NAME);
             req.setAttribute(EXPRESSLY_POPUP_ATTRIBUTE_NAME, expresslyPopupContent);
         }
