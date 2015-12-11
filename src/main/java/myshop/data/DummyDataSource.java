@@ -5,7 +5,6 @@ import com.buyexpressly.api.resource.merchant.InvoiceOrderResponse;
 import com.buyexpressly.api.resource.merchant.InvoiceRequest;
 import com.buyexpressly.api.resource.merchant.InvoiceResponse;
 import com.buyexpressly.api.resource.server.Address;
-import com.buyexpressly.api.resource.server.CartData;
 import com.buyexpressly.api.resource.server.CustomerData;
 import com.buyexpressly.api.resource.server.Email;
 import com.buyexpressly.api.resource.server.Phone;
@@ -47,9 +46,14 @@ public final class DummyDataSource {
     private static Map<String, CustomerData> customers = new HashMap<>();
     /**
      * (Mock data)
+     * Map of the existing coupons associated with a customer currently on the Database
+     */
+    private static Map<String, String> allCoupons = new HashMap<>();
+    /**
+     * (Mock data)
      * Map of the existing carts currently on the Database
      */
-    private static Map<String, CartData> allCarts = new HashMap<>();
+    private static Map<String, String> allProductIds = new HashMap<>();
 
     private DummyDataSource() {
 
@@ -66,10 +70,6 @@ public final class DummyDataSource {
 
     public static Map<String, CustomerData> getCustomers() {
         return customers;
-    }
-
-    public static Map<String, CartData> getAllCarts() {
-        return allCarts;
     }
 
     public static List<String> getExistingEmails() {
@@ -173,12 +173,16 @@ public final class DummyDataSource {
         customers.put(email, customerData);
     }
 
-    public static void upgradeCustomerToExisting(String email) {
+    public static void setCustomerToExisting(String email) {
         pendingEmails.remove(email);
         existingEmails.add(email);
     }
 
-    public static void addCartToCustomer(String email, CartData cartData) {
-        allCarts.put(email, cartData);
+    public static void addCouponToCustomerCart(String email, String couponCode) {
+        allCoupons.put(email, couponCode);
+    }
+
+    public static void addProductIdToCustomerCart(String customerReference, String productId) {
+        allProductIds.put(customerReference, productId);
     }
 }
