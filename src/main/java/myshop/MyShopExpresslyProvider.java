@@ -33,10 +33,10 @@ public class MyShopExpresslyProvider implements MerchantServiceProvider {
                     "popupContent",
                     expresslyProvider.fetchMigrationConfirmationHtml(MerchantServiceRoute.DISPLAY_POPUP.getUriParameters(request.getRequestURI()).get("campaignCustomerUuid")));
             // Attempt to forward the request to the defined popup landing page
-            request.getRequestDispatcher(getPopupDestination()).forward(request, response);
+            request.getRequestDispatcher("/homepage.jsp").forward(request, response);
         } catch (ServletException | ExpresslyException | IOException e) {
             // If there's an error, the user is redirected to a pre defined page (usually the homepage)
-            response.sendRedirect(getHomePageLocation());
+            response.sendRedirect("failedpopup.jsp");
         }
 
     }
@@ -120,5 +120,65 @@ public class MyShopExpresslyProvider implements MerchantServiceProvider {
             invoices.add(DummyDataSource.generateInvoices(customer));
         }
         return invoices;
+    }
+
+    @Override
+    public String getShopUrl() {
+        // Optional value for metadata, can be an empty String or your shop's url
+        return "http://localhost:8080/";
+    }
+
+    @Override
+    public String getLocale() {
+        //Optional metadata field, can be empty string, or your country code
+        return "GBR";
+    }
+
+    @Override
+    public String getCustomerReference(String email) {
+        //Optional identifier for your customer, can be an empty string.
+        return "";
+    }
+
+    @Override
+    public boolean checkCustomerAlreadyExists(String email) {
+        // Check the Database for whether the customer has been registered in the past.
+        return DummyDataSource.checkCustomerExists(email);
+    }
+
+    @Override
+    public String getMigratedRedirectLocation() {
+        // Once the customer is registered and his session loggedin, the customer is redirected to the login landing page defined here.
+        return "loggedin.jsp";
+    }
+
+    @Override
+    public void loginCustomer(String email, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        // Log in the customer's session
+        httpServletRequest.getSession().setAttribute("login", email);
+    }
+
+    @Override
+    public void handleCustomerAlreadyExists(String email, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            //Replace the popup content with a warning message
+            request.getSession().setAttribute(
+                    "popupContent",
+                    generateAlertJs(email));
+            // Attempt to forward the request to the defined popup landing page
+            request.getRequestDispatcher("/homepage.jsp").forward(request, response);
+        } catch (ServletException | ExpresslyException | IOException e) {
+            // If there's an error, the user is redirected to a pre defined page (usually the homepage)
+            response.sendRedirect("failedpopup.jsp");
+        }
+
+    }
+
+    private String generateAlertJs(String email) {
+        return String.format(
+                "<script type=\"text/javascript\">\n" +
+                        "alert(\"Custmer with email %s, already exists. \");\n" +
+                        "</script>", email
+        );
     }
 }

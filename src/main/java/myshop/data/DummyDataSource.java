@@ -185,4 +185,8 @@ public final class DummyDataSource {
     public static void addProductIdToCustomerCart(String customerReference, String productId) {
         allProductIds.put(customerReference, productId);
     }
+
+    public static boolean checkCustomerExists(String email) {
+        return existingEmails.contains(email);
+    }
 }
