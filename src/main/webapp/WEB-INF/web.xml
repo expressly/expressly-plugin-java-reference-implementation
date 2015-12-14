@@ -12,18 +12,19 @@
         <servlet-class>com.buyexpressly.api.MerchantPluginServlet</servlet-class>
     </servlet>
 
-    <servlet>
-        <servlet-name>PopupExampleServlet</servlet-name>
-        <servlet-class>myshop.PopupExampleServlet</servlet-class>
-    </servlet>
 
     <servlet-mapping>
         <servlet-name>MerchantPluginServlet</servlet-name>
         <url-pattern>/expressly/api/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>PopupExampleServlet</servlet-name>
+        <servlet-class>myshop.PopupExampleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PopupExampleServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
 </web-app>

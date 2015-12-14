@@ -13,8 +13,8 @@
 
 <p>
     In the event that an Expressly user has clicked a promotion for MyShop they will be forwarded to the
-    /expressly/api/[campaign-customer-uuid] endpoint which will retrieve the expressky confirmation html and
-    add it to the user's session under the attibute name "popupContent".
+    /expressly/api/[campaign-customer-uuid] endpoint which will retrieve the expressly confirmation html and
+    add it to the user's session under the attribute name "popupContent".
 </p>
 
 <p>
@@ -24,10 +24,9 @@
 </p>
 
 <%--Render the expressly confirmation dialog if present in the attribute space--%>
-<c:if test="${popupContent}">
+<c:if test="${popupContent.length() > 0}">
     ${popupContent}
 </c:if>
-
 
 </body>
 </html>
