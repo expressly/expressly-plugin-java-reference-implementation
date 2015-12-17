@@ -149,10 +149,10 @@ public final class DummyDataSource {
 
     public static InvoiceResponse generateInvoices(InvoiceRequest customer) {
         return InvoiceResponse.builder()
-                .setEmail(customer.getEmail())
-                .setPostTaxTotal(new BigDecimal(110.0))
-                .setPreTaxTotal(new BigDecimal(100.0))
-                .setTax(new BigDecimal(10.0))
+                .withEmail(customer.getEmail())
+                .withPostTaxTotal(new BigDecimal(110.0))
+                .withPreTaxTotal(new BigDecimal(100.0))
+                .withTax(new BigDecimal(10.0))
                 .add(InvoiceOrderResponse.builder()
                         .setOrderId("ORDER-5321311")
                         .setOrderDate(DateTime.parse("2015-07-10T11:42:00+01:00").toLocalDate())
@@ -162,7 +162,8 @@ public final class DummyDataSource {
                         .setPostTaxTotal(new BigDecimal(110.0))
                         .setPreTaxTotal(new BigDecimal(100.0))
                         .setTax(new BigDecimal(10.0))
-                        .build()).build();
+                        .build())
+                .build();
     }
 
     public static void addPendingEmail(String email) {

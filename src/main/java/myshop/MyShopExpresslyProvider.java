@@ -11,6 +11,8 @@ import com.buyexpressly.api.resource.merchant.InvoiceRequest;
 import com.buyexpressly.api.resource.merchant.InvoiceResponse;
 import com.buyexpressly.api.resource.server.CartData;
 import com.buyexpressly.api.resource.server.CustomerData;
+import com.buyexpressly.api.resource.server.Metadata;
+import com.buyexpressly.api.resource.server.Tuple;
 import com.buyexpressly.api.util.Builders;
 import myshop.data.DummyDataSource;
 
@@ -59,7 +61,7 @@ public class MyShopExpresslyProvider implements MerchantServiceProvider {
 
     @Override
     public boolean sendPasswordResetEmail(String customerReference) {
-        // Reset user password and send them an email,
+        // Reset user password and send them an email
         // so they can login in the future
         return true;
     }
@@ -128,18 +130,6 @@ public class MyShopExpresslyProvider implements MerchantServiceProvider {
     }
 
     @Override
-    public String getShopUrl() {
-        // Optional value for metadata, can be an empty String or your shop's url
-        return "http://localhost:8080/";
-    }
-
-    @Override
-    public String getLocale() {
-        //Optional metadata field, can be empty string, or your country code
-        return "GBR";
-    }
-
-    @Override
     public boolean checkCustomerAlreadyExists(String email) {
         // Check the Database for whether the customer has been registered in the past.
         return DummyDataSource.checkCustomerExists(email);
@@ -177,6 +167,17 @@ public class MyShopExpresslyProvider implements MerchantServiceProvider {
             }
         }
 
+    }
+
+    @Override
+    public Metadata buildMerchantMetaData() {
+        // Optional value for metadata, can be an empty String or your shop's url
+        String sender = "http://localhost:8080/";
+        //Optional metadata field, can be empty string, or your country code
+        String locale = "GBR";
+        // Metadata can be built with any amount of tuples for extra information on the shop
+        // any of the fields used in the constructor are optional and nullable.
+        return Metadata.build(sender, locale, Tuple.build("extra", "data"));
     }
 
     private String generateAlertJs(String email) {
