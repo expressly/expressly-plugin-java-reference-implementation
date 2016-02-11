@@ -1,4 +1,4 @@
-![Expressly](https://buyexpressly.com/assets/img/expressly-logo-sm-gray.png)
+![Expressly](http://developer.buyexpressly.com/img/expressly-logo-sm-gray.png)
 # Expressly Plug-in Java / Tomcat Reference Implementation
 
 This project is supplied as a reference for any developers wishing to integrate their java e-commerce platform
